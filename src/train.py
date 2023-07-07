@@ -29,7 +29,7 @@ from transformers import (
 from peft.tuners.lora import LoraLayer
 
 from trl import SFTTrainer
-from src.llama_flash_attn_monkey_patch import replace_llama_attn_with_flash_attn
+from llama_flash_attn_monkey_patch import replace_llama_attn_with_flash_attn
 
 
 ########################################################################
@@ -161,7 +161,7 @@ def create_and_prepare_model(args):
         args.model_name, quantization_config=bnb_config, device_map=device_map, trust_remote_code=True
     )
     if model.config.model_type == "llama":
-        replace_llama_attn_with_flash_attn(model)
+        replace_llama_attn_with_flash_attn()
 
     peft_config = LoraConfig(
         lora_alpha=script_args.lora_alpha,
