@@ -31,6 +31,7 @@ from peft.tuners.lora import LoraLayer
 from trl import SFTTrainer
 from llama_flash_attn_monkey_patch import replace_llama_attn_with_flash_attn
 
+replace_llama_attn_with_flash_attn()
 
 ########################################################################
 # This is a fully working simple example to use trl's RewardTrainer.
@@ -160,8 +161,6 @@ def create_and_prepare_model(args):
     model = AutoModelForCausalLM.from_pretrained(
         args.model_name, quantization_config=bnb_config, device_map=device_map, trust_remote_code=True
     )
-    if model.config.model_type == "llama":
-        replace_llama_attn_with_flash_attn()
 
     peft_config = LoraConfig(
         lora_alpha=script_args.lora_alpha,
