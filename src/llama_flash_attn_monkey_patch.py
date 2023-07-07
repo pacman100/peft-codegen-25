@@ -1,3 +1,5 @@
+# copied from https://github.com/lm-sys/FastChat/blob/main/fastchat/train/llama_flash_attn_monkey_patch.py
+
 from typing import List, Optional, Tuple
 import logging
 
