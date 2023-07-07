@@ -29,7 +29,7 @@ from transformers import (
 from peft.tuners.lora import LoraLayer
 
 from trl import SFTTrainer
-from .llama_flash_attn_monkey_patch import replace_llama_attn_with_flash_attn
+from src.llama_flash_attn_monkey_patch import replace_llama_attn_with_flash_attn
 
 
 ########################################################################
