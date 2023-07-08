@@ -190,6 +190,7 @@ training_arguments = TrainingArguments(
     lr_scheduler_type=script_args.lr_scheduler_type,
     num_train_epochs=script_args.num_train_epochs,
     save_strategy="epoch",
+    push_to_hub=True,
 )
 
 model, peft_config, tokenizer = create_and_prepare_model(script_args)
