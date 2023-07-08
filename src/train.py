@@ -124,12 +124,6 @@ class ScriptArguments:
     )
     max_steps: int = field(default=10000, metadata={"help": "How many optimizer update steps to take"})
     warmup_ratio: float = field(default=0.03, metadata={"help": "Fraction of steps to do a warmup for"})
-    group_by_length: bool = field(
-        default=True,
-        metadata={
-            "help": "Group sequences into batches with same length. Saves memory and speeds up training considerably."
-        },
-    )
     save_steps: int = field(default=10, metadata={"help": "Save checkpoint every X updates steps."})
     logging_steps: int = field(default=10, metadata={"help": "Log every X updates steps."})
     output_dir: str = field(default="results", metadata={"help": "Where to store the final model."})
@@ -188,7 +182,6 @@ training_arguments = TrainingArguments(
     bf16=script_args.bf16,
     max_grad_norm=script_args.max_grad_norm,
     warmup_ratio=script_args.warmup_ratio,
-    group_by_length=script_args.group_by_length,
     lr_scheduler_type=script_args.lr_scheduler_type,
     num_train_epochs=script_args.num_train_epochs,
     save_strategy="epoch",
