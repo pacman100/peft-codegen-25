@@ -182,7 +182,6 @@ training_arguments = TrainingArguments(
     per_device_train_batch_size=script_args.per_device_train_batch_size,
     gradient_accumulation_steps=script_args.gradient_accumulation_steps,
     optim=script_args.optim,
-    save_steps=script_args.save_steps,
     logging_steps=script_args.logging_steps,
     learning_rate=script_args.learning_rate,
     fp16=script_args.fp16,
@@ -192,6 +191,8 @@ training_arguments = TrainingArguments(
     warmup_ratio=script_args.warmup_ratio,
     group_by_length=script_args.group_by_length,
     lr_scheduler_type=script_args.lr_scheduler_type,
+    num_train_epochs=script_args.num_train_epochs,
+    save_strategy="epoch",
 )
 
 model, peft_config, tokenizer = create_and_prepare_model(script_args)
