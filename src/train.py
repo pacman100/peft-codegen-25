@@ -213,12 +213,16 @@ for name, module in trainer.model.named_modules():
     if isinstance(module, LoraLayer):
         if script_args.bf16:
             module = module.to(torch.bfloat16)
+        elif script_args.fp16:
+            module = module.to(torch.float16)
     if "norm" in name:
         module = module.to(torch.float32)
     if "lm_head" in name or "embed_tokens" in name:
         if hasattr(module, "weight"):
             if script_args.bf16 and module.weight.dtype == torch.float32:
                 module = module.to(torch.bfloat16)
+            elif script_args.fp16 and module.weight.dtype == torch.float32:
+                module = module.to(torch.float16)
 
 trainer.train()
 trainer.push_to_hub()
