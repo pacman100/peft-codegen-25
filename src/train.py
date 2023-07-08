@@ -187,7 +187,6 @@ training_arguments = TrainingArguments(
     fp16=script_args.fp16,
     bf16=script_args.bf16,
     max_grad_norm=script_args.max_grad_norm,
-    max_steps=script_args.max_steps,
     warmup_ratio=script_args.warmup_ratio,
     group_by_length=script_args.group_by_length,
     lr_scheduler_type=script_args.lr_scheduler_type,
