@@ -31,8 +31,6 @@ from peft.tuners.lora import LoraLayer
 from trl import SFTTrainer
 from llama_flash_attn_monkey_patch import replace_llama_attn_with_flash_attn
 
-replace_llama_attn_with_flash_attn()
-
 ########################################################################
 # This is a fully working simple example to use trl's RewardTrainer.
 #
@@ -127,6 +125,10 @@ class ScriptArguments:
     save_steps: int = field(default=10, metadata={"help": "Save checkpoint every X updates steps."})
     logging_steps: int = field(default=10, metadata={"help": "Log every X updates steps."})
     output_dir: str = field(default="results", metadata={"help": "Where to store the final model."})
+    use_flash_attn: Optional[bool] = field(
+        default=False,
+        metadata={"help": "Enables Flash attention for training."},
+    )
 
 
 parser = HfArgumentParser(ScriptArguments)
@@ -134,6 +136,8 @@ script_args = parser.parse_args_into_dataclasses()[0]
 
 
 def create_and_prepare_model(args):
+    if args.use_flash_attn:
+        replace_llama_attn_with_flash_attn()
     compute_dtype = getattr(torch, args.bnb_4bit_compute_dtype)
 
     bnb_config = BitsAndBytesConfig(
